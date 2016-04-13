@@ -98,6 +98,11 @@ class AuthController extends Controller
             return redirect()->back();
         }
 
+        $user = $this->userRepo->findByEmail($input['email']);
+        if($user->getType() === User::TYPE_ADMIN){
+            return redirect()->route('admin.home');
+        }
+
         return redirect()->route('home');
     }
 

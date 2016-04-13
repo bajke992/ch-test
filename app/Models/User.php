@@ -182,4 +182,12 @@ class User extends Authenticatable
             'password' => $password,
         ]);
     }
+
+    /**
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return ($this->getType() === self::TYPE_ADMIN);
+    }
 }
