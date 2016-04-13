@@ -88,10 +88,18 @@ class AuthController extends Controller
             'remember'
         ]);
 
-        $user  = $this->userRepo->findByEmailOrFail($input['email']);
+        $user  = $this->userRepo->findByEmail($input['email']);
+        if(!$user) {
+            session()->flash('error', 'Pogrešna email adresa ili lozinka!');
+            return redirect()->back();
+        }
+        if(!$user->getVerified()) {
+            session()->flash('warning', 'Verifikujte Vašu email adresu.');
+            return redirect()->back();
+        }
         if ($user->getStatus() === User::STATUS_BANNED) {
             session()->flash('warning', 'Vaš nalog je banovan.');
-            return redirect()->route('home');
+            return redirect()->back();
         }
 
         $success = $guard->attempt([
