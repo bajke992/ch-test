@@ -9,8 +9,18 @@ class User extends Authenticatable
 {
     use CanResetPassword;
 
-    const TYPE_ADMIN = 'admin';
+    /**
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * @var array
+     */
+    protected $guarded = ['id'];
+
     const TYPE_USER = 'user';
+    const TYPE_ADMIN = 'admin';
 
     const STATUS_ACTIVE = 'active';
     const STATUS_BANNED = 'banned';
@@ -32,16 +42,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * @var string
-     */
-    protected $table = 'users';
-
-    /**
-     * @var array
-     */
-    protected $guarded = ['id'];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -58,8 +58,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    private $id, $email, $password, $type, $token, $status, $verified;
 
     /**
      * @return integer
@@ -126,11 +124,17 @@ class User extends Authenticatable
     }
 
     /**
-     * @param string $token
+     * @param string|null $token
      */
-    public function setToken($token)
+    public function setToken($token = null)
     {
+        $token       = $token ?: str_random(10);
         $this->token = $token;
+    }
+
+    public function clearToken()
+    {
+        $this->token = null;
     }
 
     /**
@@ -163,5 +167,19 @@ class User extends Authenticatable
     public function setVerified($verified)
     {
         $this->verified = $verified;
+    }
+
+    /**
+     * @param $email
+     * @param $password
+     *
+     * @return static
+     */
+    public static function make($email, $password)
+    {
+        return new static([
+            'email'    => $email,
+            'password' => $password,
+        ]);
     }
 }

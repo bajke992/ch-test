@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::auth();
+Route::get('register', ['as' => 'auth.register', 'uses' => 'AuthController@getRegistration']);
+Route::post('register', ['as' => 'auth.postRegister', 'uses' => 'AuthController@postRegistration']);
+Route::get('login', ['as' => 'auth.login', 'uses' => 'AuthController@getLogin']);
+Route::post('login', ['as' => 'auth.postLogin', 'uses' => 'AuthController@postLogin']);
+Route::get('logout', ['as' => 'auth.logout', 'uses' => 'AuthController@getLogout']);
+Route::get('email/verify/{token}', ['as' => 'auth.emailVerify', 'uses' => 'AuthController@verifyEmail']);
+Route::get('email/verify/resend/{id}', ['as' => 'auth.emailResend', 'uses' => 'AuthController@resendVerificationEmail']);
 
-Route::get('/home', 'HomeController@index');
+Route::get('/',['as' => 'home', 'uses' => 'HomeController@index']);
