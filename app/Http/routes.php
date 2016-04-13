@@ -45,6 +45,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::post('update/{id}', ['as' => 'admin.question.update.post', 'uses' => 'AdminQuestionController@updatePost']);
         Route::get('delete/{id}', ['as' => 'admin.question.delete', 'uses' => 'AdminQuestionController@delete']);
     });
+    Route::group(['prefix' => 'answer'], function () {
+        Route::get('/', ['as' => 'admin.answer.list', 'uses' => 'AdminAnswerController@index']);
+        Route::get('view/{id}', ['as' => 'admin.answer.view', 'uses' => 'AdminAnswerController@view']);
+        Route::get('create', ['as' => 'admin.answer.create', 'uses' => 'AdminAnswerController@create']);
+        Route::post('create', ['as' => 'admin.answer.create.post', 'uses' => 'AdminAnswerController@createPost']);
+        Route::get('update/{id}', ['as' => 'admin.answer.update', 'uses' => 'AdminAnswerController@update']);
+        Route::post('update/{id}', ['as' => 'admin.answer.update.post', 'uses' => 'AdminAnswerController@updatePost']);
+        Route::get('delete/{id}', ['as' => 'admin.answer.delete', 'uses' => 'AdminAnswerController@delete']);
+    });
 
 });
 

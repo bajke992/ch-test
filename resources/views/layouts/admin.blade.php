@@ -51,6 +51,7 @@
                     <li><a href="{{ URL::route('admin.user.list') }}">Users</a></li>
                     <li><a href="{{ URL::route('admin.poll.list') }}">Polls</a></li>
                     <li><a href="{{ URL::route('admin.question.list') }}">Questions</a></li>
+                    <li><a href="{{ URL::route('admin.answer.list') }}">Answers</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
