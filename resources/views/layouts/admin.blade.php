@@ -39,8 +39,8 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                <a class="navbar-brand" href="{{ URL::route('admin.home') }}">
+                    Admin
                 </a>
             </div>
 
@@ -50,6 +50,7 @@
                     <li><a href="{{ URL::route('admin.home') }}">Home</a></li>
                     <li><a href="{{ URL::route('admin.user.list') }}">Users</a></li>
                     <li><a href="{{ URL::route('admin.poll.list') }}">Polls</a></li>
+                    <li><a href="{{ URL::route('admin.question.list') }}">Questions</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

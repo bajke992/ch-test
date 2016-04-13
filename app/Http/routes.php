@@ -36,6 +36,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::get('delete/{id}', ['as' => 'admin.user.delete', 'uses' => 'AdminUserController@delete']);
     });
 
+    Route::group(['prefix' => 'question'], function () {
+        Route::get('/', ['as' => 'admin.question.list', 'uses' => 'AdminQuestionController@index']);
+        Route::get('view/{id}', ['as' => 'admin.question.view', 'uses' => 'AdminQuestionController@view']);
+        Route::get('create', ['as' => 'admin.question.create', 'uses' => 'AdminQuestionController@create']);
+        Route::post('create', ['as' => 'admin.question.create.post', 'uses' => 'AdminQuestionController@createPost']);
+        Route::get('update/{id}', ['as' => 'admin.question.update', 'uses' => 'AdminQuestionController@update']);
+        Route::post('update/{id}', ['as' => 'admin.question.update.post', 'uses' => 'AdminQuestionController@updatePost']);
+        Route::get('delete/{id}', ['as' => 'admin.question.delete', 'uses' => 'AdminQuestionController@delete']);
+    });
+
 });
 
 Route::get('register', ['as' => 'auth.register', 'uses' => 'AuthController@getRegistration']);
