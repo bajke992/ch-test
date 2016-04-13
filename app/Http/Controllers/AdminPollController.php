@@ -30,11 +30,11 @@ class AdminPollController extends Controller
         ]);
     }
 
-    public function view()
+    public function view($id)
     {
-        $poll = new Poll();
+        $poll = $this->pollRepo->findOrFail($id);
 
-        return view('admin.polls.single', ['poll' => $poll]);
+        return view('admin.polls.view', ['poll' => $poll]);
     }
 
     public function create()

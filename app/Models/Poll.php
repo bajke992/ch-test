@@ -100,7 +100,7 @@ class Poll extends Model
 
     public function questions()
     {
-        return $this->belongsToMany('App\Molde\Question');
+        return $this->belongsToMany('App\Models\Question');
     }
 
     public static function make($title, $visibility, $status)

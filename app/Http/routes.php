@@ -23,6 +23,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::post('update/{id}', ['as' => 'admin.poll.update.post', 'uses' => 'AdminPollController@updatePost']);
         Route::get('archive/{id}', ['as' => 'admin.poll.archive', 'uses' => 'AdminPollController@archive']);
         Route::get('delete/{id}', ['as' => 'admin.poll.delete', 'uses' => 'AdminPollController@delete']);
+
+        Route::post('view/{id}', ['as' => 'admin.poll.view.post', function (\Symfony\Component\HttpFoundation\Request $request) {
+            dd($request->all());
+        }]);
+
+//        Route::get('create/flow', ['as' => 'admin.poll.flowCreate', 'uses' => 'AdminPollController@flowCreate']);
     });
 
     Route::group(['prefix' => 'user'], function () {
@@ -44,7 +50,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::get('update/{id}', ['as' => 'admin.question.update', 'uses' => 'AdminQuestionController@update']);
         Route::post('update/{id}', ['as' => 'admin.question.update.post', 'uses' => 'AdminQuestionController@updatePost']);
         Route::get('delete/{id}', ['as' => 'admin.question.delete', 'uses' => 'AdminQuestionController@delete']);
+
+//        Route::post('create/flow', ['as' => 'admin.question.flowCreate', 'uses' => 'AdminQuestionController@flowCreate']);
     });
+
     Route::group(['prefix' => 'answer'], function () {
         Route::get('/', ['as' => 'admin.answer.list', 'uses' => 'AdminAnswerController@index']);
         Route::get('view/{id}', ['as' => 'admin.answer.view', 'uses' => 'AdminAnswerController@view']);
@@ -53,6 +62,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::get('update/{id}', ['as' => 'admin.answer.update', 'uses' => 'AdminAnswerController@update']);
         Route::post('update/{id}', ['as' => 'admin.answer.update.post', 'uses' => 'AdminAnswerController@updatePost']);
         Route::get('delete/{id}', ['as' => 'admin.answer.delete', 'uses' => 'AdminAnswerController@delete']);
+    });
+
+    Route::group(['prefix' => 'create'], function () {
+        Route::get('poll', ['as' => 'admin.flowCreate.poll', 'uses' => 'AdminFlowController@poll']);
+        Route::post('question', ['as' => 'admin.flowCreate.question', 'uses' => 'AdminFlowController@pollPost']);
+        Route::post('answer', ['as' => 'admin.flowCreate.answer', 'uses' => 'AdminFlowController@questionPost']);
+        Route::post('finish', ['as' => 'admin.flowCreate.finish', 'uses' => 'AdminFlowController@answerPost']);
     });
 
 });
