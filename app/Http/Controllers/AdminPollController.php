@@ -30,11 +30,18 @@ class AdminPollController extends Controller
         ]);
     }
 
+    public function view()
+    {
+        $poll = new Poll();
+
+        return view('admin.polls.single', ['poll' => $poll]);
+    }
+
     public function create()
     {
         $poll = new Poll();
 
-        return view('admin.polls.create', ['poll' => $poll]);
+        return view('admin.polls.form', ['poll' => $poll]);
     }
 
     public function createPost(Request $request)
@@ -60,7 +67,7 @@ class AdminPollController extends Controller
     {
         $poll = $this->pollRepo->findOrFail($id);
 
-        return view('admin.polls.create', ['poll' => $poll]);
+        return view('admin.polls.form', ['poll' => $poll]);
     }
 
     public function updatePost(Request $request, $id)
