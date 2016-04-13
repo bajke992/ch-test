@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="container">
+        <a href="{{ URL::route('admin.flowCreate.poll') }}" class="btn btn-info">Create Poll (Flow)</a>
         <a href="{{ URL::route('admin.poll.create') }}" class="btn btn-info">Create Poll</a>
         <table class="table">
             <thead>

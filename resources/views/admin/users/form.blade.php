@@ -27,6 +27,8 @@
 
             @include('components.checkbox', [
                 'name' => 'verified',
+                'id' => 'verified',
+                'value' => true,
                 'label' => 'Verified',
                 'checked' => $user->getVerified()
             ])
