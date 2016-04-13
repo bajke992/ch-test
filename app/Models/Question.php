@@ -63,6 +63,16 @@ class Question extends Model
         $this->type = $type;
     }
 
+    public function polls()
+    {
+        return $this->belongsToMany('App\Models\Poll');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany('App\Models\Answer');
+    }
+
     /**
      * @param string $type
      * @param string $question

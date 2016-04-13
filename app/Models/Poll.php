@@ -98,6 +98,11 @@ class Poll extends Model
         $this->lock = $lock;
     }
 
+    public function questions()
+    {
+        return $this->belongsToMany('App\Molde\Question');
+    }
+
     public static function make($title, $visibility, $status)
     {
         if(!in_array($visibility, self::$VALID_VISIBILITY)){

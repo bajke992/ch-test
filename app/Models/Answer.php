@@ -34,6 +34,11 @@ class Answer extends Model
         $this->answer = $answer;
     }
 
+    public function question()
+    {
+        return $this->belongsTo('App\Models\Question');
+    }
+
     public static function make($answer)
     {
         return new static([

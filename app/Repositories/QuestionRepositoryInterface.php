@@ -2,7 +2,9 @@
 
 
 use App\Exceptions\EntityNotFoundException;
+use App\Models\Poll;
 use App\Models\Question;
+use Illuminate\Support\Collection;
 
 interface QuestionRepositoryInterface
 {
@@ -27,9 +29,22 @@ interface QuestionRepositoryInterface
     public function findOrFail($id);
 
     /**
+     * @param Poll $poll
+     *
+     * @return Collection|Question[]
+     */
+    public function getQuestionsForPoll(Poll $poll);
+
+    /**
      * @param Question $question
      */
     public function save(Question $question);
+
+    /**
+     * @param Poll     $poll
+     * @param Question $question
+     */
+    public function saveQuestionToPoll(Poll $poll, Question $question);
 
     /**
      * @param Question $question

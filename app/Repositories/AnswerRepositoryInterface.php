@@ -2,6 +2,8 @@
 
 use App\Exceptions\EntityNotFoundException;
 use App\Models\Answer;
+use App\Models\Question;
+use Illuminate\Support\Collection;
 
 interface AnswerRepositoryInterface
 {
@@ -27,9 +29,22 @@ interface AnswerRepositoryInterface
     public function findOrFail($id);
 
     /**
+     * @param Question $question
+     *
+     * @return Collection|Answer[]
+     */
+    public function getAnswersForQuestion(Question $question);
+
+    /**
      * @param Answer $answer
      */
     public function save(Answer $answer);
+
+    /**
+     * @param Question $question
+     * @param Answer   $answer
+     */
+    public function saveAnswerToQuestion(Question $question, Answer $answer);
 
     /**
      * @param Answer $answer

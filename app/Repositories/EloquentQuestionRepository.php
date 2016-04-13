@@ -1,7 +1,9 @@
 <?php namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
+use App\Models\Poll;
 use App\Models\Question;
+use Illuminate\Support\Collection;
 
 class EloquentQuestionRepository implements QuestionRepositoryInterface
 {
@@ -55,11 +57,30 @@ class EloquentQuestionRepository implements QuestionRepositoryInterface
     }
 
     /**
+     * @param Poll $poll
+     *
+     * @return Collection|Question[]
+     */
+    public function getQuestionsForPoll(Poll $poll)
+    {
+        return $poll->questions()->get();
+    }
+
+    /**
      * @param Question $question
      */
     public function save(Question $question)
     {
         $question->save();
+    }
+
+    /**
+     * @param Poll     $poll
+     * @param Question $question
+     */
+    public function saveQuestionToPoll(Poll $poll, Question $question)
+    {
+        $poll->questions()->save($question);
     }
 
     /**
