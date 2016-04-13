@@ -29,16 +29,16 @@ class User extends Authenticatable
      * @var array
      */
     static $VALID_TYPES = [
-        self::TYPE_ADMIN,
-        self::TYPE_USER
+        'Admin' => self::TYPE_ADMIN,
+        'User'  => self::TYPE_USER
     ];
 
     /**
      * @var array
      */
     static $VALID_STATUS = [
-        self::STATUS_ACTIVE,
-        self::STATUS_BANNED
+        'Active' => self::STATUS_ACTIVE,
+        'Banned' => self::STATUS_BANNED
     ];
 
     /**

@@ -48,6 +48,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ URL::route('admin.home') }}">Home</a></li>
+                    <li><a href="{{ URL::route('admin.user.list') }}">Users</a></li>
                     <li><a href="{{ URL::route('admin.poll.list') }}">Polls</a></li>
                 </ul>
 

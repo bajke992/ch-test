@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         $user = $this->userRepo->findByEmail(trim($input['email']));
 
-        if($user !== null) {
+        if ($user !== null) {
             session()->flash('warning', 'Korisnik sa tom email adresom već postoji.');
             return redirect()->back();
         }
@@ -88,18 +88,24 @@ class AuthController extends Controller
             'remember'
         ]);
 
+        $user  = $this->userRepo->findByEmailOrFail($input['email']);
+        if ($user->getStatus() === User::STATUS_BANNED) {
+            session()->flash('warning', 'Vaš nalog je banovan.');
+            return redirect()->route('home');
+        }
+
         $success = $guard->attempt([
-            'email' => $input['email'],
+            'email'    => $input['email'],
             'password' => $input['password']
         ], $input['remember']);
 
-        if(!$success) {
+        if (!$success) {
             session()->flash('error', 'Pogrešna email adresa ili lozinka!');
             return redirect()->back();
         }
 
         $user = $this->userRepo->findByEmail($input['email']);
-        if($user->getType() === User::TYPE_ADMIN){
+        if ($user->getType() === User::TYPE_ADMIN) {
             return redirect()->route('admin.home');
         }
 
