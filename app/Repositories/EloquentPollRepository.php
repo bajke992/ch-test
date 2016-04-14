@@ -49,7 +49,7 @@ class EloquentPollRepository implements PollRepositoryInterface
     public function findOrFail($id)
     {
         $poll = $this->find($id);
-        if($poll === null){
+        if ($poll === null) {
             throw new EntityNotFoundException('Poll not found.');
         }
 
@@ -75,7 +75,7 @@ class EloquentPollRepository implements PollRepositoryInterface
     public function findByTitleOrFail($title)
     {
         $poll = $this->findByTitle($title);
-        if($poll === null){
+        if ($poll === null) {
             throw new EntityNotFoundException('Poll not found.');
         }
 
@@ -85,7 +85,8 @@ class EloquentPollRepository implements PollRepositoryInterface
     /**
      * @return Collection|Poll[]
      */
-    public function getAvailablePolls(){
+    public function getAvailablePolls()
+    {
         $query = $this->poll->query();
 
         $query->where('status', Poll::STATUS_ACTIVE)

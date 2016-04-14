@@ -46,7 +46,8 @@
                 @endif
             @else
                 <div class="form-group">
-                    Molimo Vas <a href="{{ URL::route('auth.login') }}">ulogujte se</a> ili <a href="{{ URL::route('auth.register') }}">registrujte</a> nalog kako bi učestvovali u anketi.
+                    Molimo Vas <a href="{{ URL::route('auth.login') }}">ulogujte se</a> ili <a
+                            href="{{ URL::route('auth.register') }}">registrujte</a> nalog kako bi učestvovali u anketi.
                 </div>
             @endif
         </form>

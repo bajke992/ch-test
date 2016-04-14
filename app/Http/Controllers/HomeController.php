@@ -80,7 +80,7 @@ class HomeController extends Controller
         /** @var User $user */
         $user = $guard->user();
 
-        if(!$guard->guest() && (!$this->userRepo->userCanParticipate($poll, $user) && $poll->isPublic())){
+        if (!$guard->guest() && (!$this->userRepo->userCanParticipate($poll, $user) && $poll->isPublic())) {
             return redirect()->route('user.polls.view', [$poll->id]);
         }
 
@@ -98,11 +98,11 @@ class HomeController extends Controller
         $user = $guard->user();
 
         $poll_ids = array_unique($user->userAnswers->pluck('poll_id')->toArray());
-        $polls = null;
+        $polls    = null;
 
-        foreach($poll_ids as $poll) {
+        foreach ($poll_ids as $poll) {
             $tmp = $this->pollRepo->findOrFail($poll);
-            if($tmp->getVisibility() === Poll::VISIBILITY_PUBLIC) {
+            if ($tmp->getVisibility() === Poll::VISIBILITY_PUBLIC) {
                 $polls[] = $tmp;
             }
         }
@@ -120,7 +120,7 @@ class HomeController extends Controller
     {
         $poll = $this->pollRepo->findOrFail($id);
         /** @var User $user */
-        $user = $guard->user();
+        $user        = $guard->user();
         $userAnswers = $this->userAnswerRepo->getAnswersForUserAndPoll($user, $poll);
 
 //        dd($userAnswers);
@@ -155,7 +155,7 @@ class HomeController extends Controller
                 $this->userAnswerRepo->save($userAnswer);
                 $this->userAnswerRepo->saveUserAnswerToRelations($userAnswer, $user, $poll, $question, $answer);
             } else {
-                foreach($item as $a_id => $answerItem) {
+                foreach ($item as $a_id => $answerItem) {
                     $answer = $this->answerRepo->findOrFail($a_id);
 
                     $userAnswer = new UserAnswer();

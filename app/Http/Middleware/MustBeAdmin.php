@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +20,7 @@ class MustBeAdmin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if(Auth::guard($guard)->check() && Auth::guard($guard)->user()->isAdmin()) {
+        if (Auth::guard($guard)->check() && Auth::guard($guard)->user()->isAdmin()) {
             return $next($request);
         }
 

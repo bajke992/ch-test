@@ -12,7 +12,8 @@
                 <div class="col-md-12">
                     <h4>{{ $question->question }}</h4>
                     @foreach($question->answers as $answer)
-                        <h5>{{ $answer->answer }}@if(in_array($answer->id, $userAnswers->pluck('answer_id')->toArray())) - <span class="glyphicon glyphicon-ok"></span>@endif</h5>
+                        <h5>{{ $answer->answer }}@if(in_array($answer->id, $userAnswers->pluck('answer_id')->toArray()))
+                                - <span class="glyphicon glyphicon-ok"></span>@endif</h5>
                     @endforeach
                 </div>
             @endforeach

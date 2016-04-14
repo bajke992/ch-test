@@ -6,7 +6,8 @@
             {!! csrf_field() !!}
             <div class="form-group">
                 <label for="title">Title</label>
-                <input required type="text" class="form-control" name="title" id="title" value="@if($errors->any()){{ old('title') }}@else{{ $poll->getTitle() }}@endif"/>
+                <input required type="text" class="form-control" name="title" id="title"
+                       value="@if($errors->any()){{ old('title') }}@else{{ $poll->getTitle() }}@endif"/>
             </div>
 
             @include('components.select', [

@@ -7,7 +7,8 @@
 
             <div class="form-group">
                 <label for="answer">Answer</label>
-                <textarea name="answer" id="answer" class="form-control">@if($errors->any()){{ old('answer') }}@else{{ $answer->getAnswer() }}@endif</textarea>
+                <textarea name="answer" id="answer"
+                          class="form-control">@if($errors->any()){{ old('answer') }}@else{{ $answer->getAnswer() }}@endif</textarea>
             </div>
 
             <button type="submit" class="btn btn-success">Submit</button>

@@ -49,7 +49,7 @@ class EloquentQuestionRepository implements QuestionRepositoryInterface
     public function findOrFail($id)
     {
         $question = $this->find($id);
-        if($question === null) {
+        if ($question === null) {
             throw new EntityNotFoundException('Question not found.');
         }
 

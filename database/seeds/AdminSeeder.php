@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $hasher = new BcryptHasher();
-        $admin = new User();
+        $admin  = new User();
         $admin->setEmail('polladmin@cloudhorizon.com');
         $admin->setPassword($hasher->make('polladmin'));
         $admin->setType(User::TYPE_ADMIN);

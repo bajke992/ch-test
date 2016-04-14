@@ -76,7 +76,7 @@ class Mailer
     protected function deliver(UploadedFile $attachment = null)
     {
         $this->data['subject'] = $this->subject;
-        $this->mailer->send($this->view, $this->data, function (Message $msg) use($attachment) {
+        $this->mailer->send($this->view, $this->data, function (Message $msg) use ($attachment) {
             $msg->from($this->from, $this->fromName)
                 ->to($this->to)
                 ->subject($this->subject);

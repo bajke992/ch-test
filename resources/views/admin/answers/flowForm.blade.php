@@ -18,7 +18,8 @@
                         <label>Answer</label>
                         <textarea required name="answer[{{ $question->id }}][]" class="form-control"></textarea>
                     </div>
-                    <a href="javascript:;" class="btn btn-info" id="add-{{ $question->id }}" data-id="{{ $question->id }}">Add Answer</a>
+                    <a href="javascript:;" class="btn btn-info" id="add-{{ $question->id }}"
+                       data-id="{{ $question->id }}">Add Answer</a>
                 </div>
                 <hr/>
             @endforeach
@@ -48,8 +49,8 @@
             );
             $('#question-' + $id).append($clone);
         });
-        $(window).bind('beforeunload',function(){
-            if(!$submitted) {
+        $(window).bind('beforeunload', function () {
+            if (!$submitted) {
                 $('[id^=question-]').each(function () {
                     $id = $(this).data('id');
                     $.get('{{ URL::route('admin.question.delete', ['']) }}/' + $id);

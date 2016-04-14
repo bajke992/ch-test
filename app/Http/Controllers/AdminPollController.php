@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidArgumentException;
+use App\Http\Requests;
 use App\Models\Poll;
 use App\Repositories\PollRepositoryInterface;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Http\Response;
 
 class AdminPollController extends Controller
@@ -96,7 +95,7 @@ class AdminPollController extends Controller
     {
         $poll = $this->pollRepo->findOrFail($id);
 
-        if($poll->userAnswers->count() > 0) {
+        if ($poll->userAnswers->count() > 0) {
             session()->flash('warning', 'This poll contains user answers and cannot be edited!');
             return redirect()->back();
         }

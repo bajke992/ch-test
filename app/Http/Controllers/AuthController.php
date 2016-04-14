@@ -113,12 +113,12 @@ class AuthController extends Controller
             'remember'
         ]);
 
-        $user  = $this->userRepo->findByEmail($input['email']);
-        if(!$user) {
+        $user = $this->userRepo->findByEmail($input['email']);
+        if (!$user) {
             session()->flash('error', 'Pogrešna email adresa ili lozinka!');
             return redirect()->back();
         }
-        if(!$user->getVerified()) {
+        if (!$user->getVerified()) {
             session()->flash('warning', 'Verifikujte Vašu email adresu.');
             return redirect()->back();
         }

@@ -1,12 +1,12 @@
 <script>
 
-    function flashMessage(message){
+    function flashMessage(message) {
         toastr.info(message);
     }
-    function flashError(message){
+    function flashError(message) {
         toastr.error(message);
     }
-    function flashWarning(message){
+    function flashWarning(message) {
         toastr.warning(message);
     }
 

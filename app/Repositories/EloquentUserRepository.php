@@ -50,7 +50,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function findOrFail($id)
     {
         $user = $this->find($id);
-        if($user === null){
+        if ($user === null) {
             throw new EntityNotFoundException("User not found.");
         }
 
@@ -76,7 +76,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function findByEmailOrFail($email)
     {
         $user = $this->findByEmail($email);
-        if($user === null) {
+        if ($user === null) {
             throw new EntityNotFoundException('User not found.');
         }
 
@@ -102,7 +102,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function findByTokenOrFail($token)
     {
         $user = $this->findByToken($token);
-        if($user === null){
+        if ($user === null) {
             throw new EntityNotFoundException('User not found.');
         }
 
@@ -115,8 +115,9 @@ class EloquentUserRepository implements UserRepositoryInterface
      *
      * @return boolean
      */
-    public function userCanParticipate(Poll $poll, User $user){
-        if(DB::table('user_answers')->whereUserId($user->id)->wherePollId($poll->id)->count() > 0) return false;
+    public function userCanParticipate(Poll $poll, User $user)
+    {
+        if (DB::table('user_answers')->whereUserId($user->id)->wherePollId($poll->id)->count() > 0) return false;
 
         return true;
     }

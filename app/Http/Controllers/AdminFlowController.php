@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidArgumentException;
+use App\Http\Requests;
 use App\Models\Answer;
 use App\Models\Poll;
 use App\Models\Question;
@@ -10,8 +11,6 @@ use App\Repositories\AnswerRepositoryInterface;
 use App\Repositories\PollRepositoryInterface;
 use App\Repositories\QuestionRepositoryInterface;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Http\Response;
 
 class AdminFlowController extends Controller
@@ -38,9 +37,9 @@ class AdminFlowController extends Controller
      */
     public function __construct(PollRepositoryInterface $pollRepo, QuestionRepositoryInterface $questionRepo, AnswerRepositoryInterface $answerRepo)
     {
-        $this->pollRepo = $pollRepo;
+        $this->pollRepo     = $pollRepo;
         $this->questionRepo = $questionRepo;
-        $this->answerRepo = $answerRepo;
+        $this->answerRepo   = $answerRepo;
     }
 
     /**
@@ -96,7 +95,7 @@ class AdminFlowController extends Controller
 
         $poll = $this->pollRepo->findOrFail($input['poll_id']);
 
-        foreach($input['question'] as $k => $v){
+        foreach ($input['question'] as $k => $v) {
             $question = Question::make(
                 $input['type'][$k],
                 $v
@@ -123,7 +122,7 @@ class AdminFlowController extends Controller
             'poll_id'
         ]);
 
-        foreach($input['answer'] as $k => $v) {
+        foreach ($input['answer'] as $k => $v) {
             $question = $this->questionRepo->findOrFail($k);
             foreach ($v as $a) {
                 $answer = Answer::make($a);

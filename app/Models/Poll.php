@@ -20,11 +20,11 @@ class Poll extends Model
     const VISIBILITY_PRIVATE = 'private';
 
     static $VALID_STATUS = [
-        'Active' => self::STATUS_ACTIVE,
+        'Active'   => self::STATUS_ACTIVE,
         'Archived' => self::STATUS_ARCHIVED
     ];
     static $VALID_VISIBILITY = [
-        'Public' => self::VISIBILITY_PUBLIC,
+        'Public'  => self::VISIBILITY_PUBLIC,
         'Private' => self::VISIBILITY_PRIVATE
     ];
 
@@ -126,12 +126,12 @@ class Poll extends Model
      */
     public static function make($title, $visibility, $status)
     {
-        if(!in_array($visibility, self::$VALID_VISIBILITY)){
-            throw new InvalidArgumentException("Invalid $visibility value. Possible options are: " . implode(', ', self::$VALID_VISIBILITY));
+        if (!in_array($visibility, self::$VALID_VISIBILITY)) {
+            throw new InvalidArgumentException("Invalid $visibility value. Possible options are: ".implode(', ', self::$VALID_VISIBILITY));
         }
 
-        if(!in_array($status, self::$VALID_STATUS)){
-            throw new InvalidArgumentException("Invalid $status value. Possible options are: " . implode(', ', self::$VALID_STATUS));
+        if (!in_array($status, self::$VALID_STATUS)) {
+            throw new InvalidArgumentException("Invalid $status value. Possible options are: ".implode(', ', self::$VALID_STATUS));
         }
 
         return new static([
@@ -146,7 +146,7 @@ class Poll extends Model
      */
     public function isPublic()
     {
-        if($this->getVisibility() === self::VISIBILITY_PUBLIC) return true;
+        if ($this->getVisibility() === self::VISIBILITY_PUBLIC) return true;
 
         return false;
     }

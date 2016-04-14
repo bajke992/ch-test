@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Models\Answer;
 use App\Repositories\AnswerRepositoryInterface;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Http\Response;
 
 class AdminAnswerController extends Controller
@@ -73,7 +72,7 @@ class AdminAnswerController extends Controller
     {
         $answer = $this->answerRepo->findOrFail($id);
 
-        if($answer->userAnswers->count() > 0) {
+        if ($answer->userAnswers->count() > 0) {
             session()->flash('warning', 'This poll contains user answers and cannot be edited!');
             return redirect()->back();
         }

@@ -54,6 +54,7 @@ class Question extends Model
 
     /**
      * @param string $type
+     *
      * @throws InvalidArgumentException
      */
     public function setType($type)

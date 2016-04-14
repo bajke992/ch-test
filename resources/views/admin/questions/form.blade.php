@@ -7,7 +7,8 @@
 
             <div class="form-group">
                 <label for="question">Question</label>
-                <textarea name="question" id="question" class="form-control">@if($errors->any()){{ old('question') }}@else{{ $question->getQuestion() }}@endif</textarea>
+                <textarea name="question" id="question"
+                          class="form-control">@if($errors->any()){{ old('question') }}@else{{ $question->getQuestion() }}@endif</textarea>
             </div>
 
             @include('components.select', [

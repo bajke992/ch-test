@@ -10,7 +10,8 @@
             <div id="clone">
                 <div class="form-group">
                     <label for="question">Question</label>
-                    <textarea required name="question[]" id="question" class="form-control">@if($errors->any()){{ old('question') }}@else{{ $question->getQuestion() }}@endif</textarea>
+                    <textarea required name="question[]" id="question"
+                              class="form-control">@if($errors->any()){{ old('question') }}@else{{ $question->getQuestion() }}@endif</textarea>
                 </div>
 
                 @include('components.select', [
@@ -45,8 +46,8 @@
 
             $('#questions').append($clone);
         });
-        $(window).bind('beforeunload',function(){
-            if(!$submitted) {
+        $(window).bind('beforeunload', function () {
+            if (!$submitted) {
                 $id = $('#poll_id').val();
                 $.get('{{ URL::route('admin.poll.delete', ['']) }}/' + $id);
             }

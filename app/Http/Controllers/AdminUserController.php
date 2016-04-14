@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
 use App\Services\Mailer;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Mail;
 
 class AdminUserController extends Controller
 {
@@ -68,7 +66,7 @@ class AdminUserController extends Controller
         $user = User::make($input['email'], $hasher->make($input['password']));
         $user->setType(User::TYPE_ADMIN);
         $user->setStatus($input['status']);
-        if($input['verified']) {
+        if ($input['verified']) {
             $user->setVerified(true);
         } else {
             $user->setVerified(false);
@@ -77,7 +75,7 @@ class AdminUserController extends Controller
 
         $this->userRepo->save($user);
 
-        if(!$input['verified'] && $user->getStatus() !== User::STATUS_BANNED) $mailer->sendActivationEmail($user);
+        if (!$input['verified'] && $user->getStatus() !== User::STATUS_BANNED) $mailer->sendActivationEmail($user);
 
         return redirect()->route('admin.user.list');
     }
@@ -114,11 +112,11 @@ class AdminUserController extends Controller
         ]);
 
         $user->setEmail($input['email']);
-        if($input['password'] !== ""){
+        if ($input['password'] !== "") {
             $user->setPassword($hasher->make($input['password']));
         }
         $user->setStatus($input['status']);
-        if($input['verified']) {
+        if ($input['verified']) {
             $user->setVerified(true);
         } else {
             $user->setVerified(false);
@@ -127,7 +125,7 @@ class AdminUserController extends Controller
 
         $this->userRepo->save($user);
 
-        if(!$input['verified'] && $user->getStatus() !== User::STATUS_BANNED) $mailer->sendActivationEmail($user);
+        if (!$input['verified'] && $user->getStatus() !== User::STATUS_BANNED) $mailer->sendActivationEmail($user);
 
         return redirect()->route('admin.user.list');
 
