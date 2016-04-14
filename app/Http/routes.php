@@ -23,10 +23,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::post('update/{id}', ['as' => 'admin.poll.update.post', 'uses' => 'AdminPollController@updatePost']);
         Route::get('archive/{id}', ['as' => 'admin.poll.archive', 'uses' => 'AdminPollController@archive']);
         Route::get('delete/{id}', ['as' => 'admin.poll.delete', 'uses' => 'AdminPollController@delete']);
-
-        Route::post('view/{id}', ['as' => 'admin.poll.view.post', function (\Symfony\Component\HttpFoundation\Request $request) {
-            dd($request->all());
-        }]);
     });
 
     Route::group(['prefix' => 'user'], function () {
