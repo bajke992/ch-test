@@ -43,7 +43,7 @@ class EloquentUserAnswerRepository implements UserAnswerRepositoryInterface
     {
         $user->userAnswers()->save($userAnswer);
         $poll->userAnswers()->save($userAnswer);
-        $question->userAnswer()->save($userAnswer);
+        $question->userAnswers()->save($userAnswer);
         $answer->userAnswers()->save($userAnswer);
     }
 
