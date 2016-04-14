@@ -12,6 +12,7 @@ use App\Services\Mailer;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
@@ -40,11 +41,24 @@ class AuthController extends Controller
         $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
+    /**
+     * @param RegistrationRequest $request
+     *
+     * @return Response
+     */
     public function getRegistration(RegistrationRequest $request)
     {
         return view('auth.register');
     }
 
+    /**
+     * @param RegistrationPostRequest $request
+     * @param Mailer                  $mailer
+     * @param Hasher                  $hasher
+     * @param Guard                   $guard
+     *
+     * @return Response
+     */
     public function postRegistration(RegistrationPostRequest $request, Mailer $mailer, Hasher $hasher, Guard $guard)
     {
         $input = $request->only([
@@ -75,11 +89,22 @@ class AuthController extends Controller
         return redirect()->route('auth.login');
     }
 
+    /**
+     * @param LoginRequest $request
+     *
+     * @return Response
+     */
     public function getLogin(LoginRequest $request)
     {
         return view('auth.login');
     }
 
+    /**
+     * @param LoginPostRequest $request
+     * @param Guard            $guard
+     *
+     * @return Response
+     */
     public function postLogin(LoginPostRequest $request, Guard $guard)
     {
         $input = $request->only([
@@ -114,18 +139,29 @@ class AuthController extends Controller
 
         $user = $this->userRepo->findByEmail($input['email']);
         if ($user->getType() === User::TYPE_ADMIN) {
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.poll.list');
         }
 
         return redirect()->route('home');
     }
 
+    /**
+     * @param Guard $guard
+     *
+     * @return Response
+     */
     public function getLogout(Guard $guard)
     {
         $guard->logout();
         return redirect()->route('home');
     }
 
+    /**
+     * @param Guard $guard
+     * @param       $token
+     *
+     * @return Response
+     */
     public function verifyEmail(Guard $guard, $token)
     {
         $user = $this->userRepo->findByTokenOrFail($token);
@@ -141,6 +177,9 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
+    /**
+     * @param Mailer $mailer
+     */
     public function resendVerificationEmail(Mailer $mailer)
     {
     }

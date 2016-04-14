@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -167,6 +168,14 @@ class User extends Authenticatable
     public function setVerified($verified)
     {
         $this->verified = $verified;
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function userAnswers()
+    {
+        return $this->hasMany('App\Models\UserAnswer');
     }
 
     /**

@@ -83,6 +83,18 @@ class EloquentPollRepository implements PollRepositoryInterface
     }
 
     /**
+     * @return Collection|Poll[]
+     */
+    public function getAvailablePolls(){
+        $query = $this->poll->query();
+
+        $query->where('status', Poll::STATUS_ACTIVE)
+            ->where('visibility', Poll::VISIBILITY_PUBLIC);
+
+        return $query->get();
+    }
+
+    /**
      * @param Poll $poll
      */
     public function save(Poll $poll)

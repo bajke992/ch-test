@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Answer extends Model
 {
@@ -34,11 +36,27 @@ class Answer extends Model
         $this->answer = $answer;
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function question()
     {
         return $this->belongsTo('App\Models\Question');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function userAnswers()
+    {
+        return $this->hasMany('App\Models\UserAnswer');
+    }
+
+    /**
+     * @param $answer
+     *
+     * @return static
+     */
     public static function make($answer)
     {
         return new static([

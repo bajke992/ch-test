@@ -52,6 +52,11 @@ interface PollRepositoryInterface
     public function findByTitleOrFail($title);
 
     /**
+     * @return Collection|Poll[]
+     */
+    public function getAvailablePolls();
+
+    /**
      * @param Poll $poll
      */
     public function save(Poll $poll);

@@ -6,13 +6,16 @@ use App\Models\Answer;
 use App\Models\Poll;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\UserAnswer;
 use App\Repositories\AnswerRepositoryInterface;
 use App\Repositories\EloquentAnswerRepository;
 use App\Repositories\EloquentPollRepository;
 use App\Repositories\EloquentQuestionRepository;
+use App\Repositories\EloquentUserAnswerRepository;
 use App\Repositories\EloquentUserRepository;
 use App\Repositories\PollRepositoryInterface;
 use App\Repositories\QuestionRepositoryInterface;
+use App\Repositories\UserAnswerRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +40,9 @@ class RepositoryServiceProvider extends ServiceProvider
         });
         $this->app->bind(AnswerRepositoryInterface::class, function (Application $app) {
             return new EloquentAnswerRepository(new Answer());
+        });
+        $this->app->bind(UserAnswerRepositoryInterface::class, function (Application $app) {
+            return new EloquentUserAnswerRepository(new UserAnswer());
         });
     }
 

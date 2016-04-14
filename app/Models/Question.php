@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Exceptions\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Question extends Model
 {
@@ -63,14 +64,28 @@ class Question extends Model
         $this->type = $type;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function polls()
     {
         return $this->belongsToMany('App\Models\Poll');
     }
 
+    /**
+     * @return HasMany
+     */
     public function answers()
     {
         return $this->hasMany('App\Models\Answer');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function userAnswers()
+    {
+        return $this->hasMany('App\Models\UserAnswer');
     }
 
     /**

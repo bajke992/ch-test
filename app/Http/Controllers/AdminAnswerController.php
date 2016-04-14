@@ -7,6 +7,7 @@ use App\Repositories\AnswerRepositoryInterface;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Http\Response;
 
 class AdminAnswerController extends Controller
 {
@@ -25,6 +26,9 @@ class AdminAnswerController extends Controller
         $this->answerRepo = $answerRepo;
     }
 
+    /**
+     * @return Response
+     */
     public function index()
     {
         $answers = $this->answerRepo->getAll();
@@ -32,6 +36,9 @@ class AdminAnswerController extends Controller
         return view('admin.answers.list', ['answers' => $answers]);
     }
 
+    /**
+     * @return Response
+     */
     public function create()
     {
         $answer = new Answer;
@@ -39,6 +46,11 @@ class AdminAnswerController extends Controller
         return view('admin.answers.form', ['answer' => $answer]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function createPost(Request $request)
     {
         $input = $request->only([
@@ -52,13 +64,29 @@ class AdminAnswerController extends Controller
         return redirect()->route('admin.answer.list');
     }
 
+    /**
+     * @param $id
+     *
+     * @return Response
+     */
     public function update($id)
     {
         $answer = $this->answerRepo->findOrFail($id);
 
+        if($answer->userAnswers->count() > 0) {
+            session()->flash('warning', 'This poll contains user answers and cannot be edited!');
+            return redirect()->back();
+        }
+
         return view('admin.answers.form', ['answer' => $answer]);
     }
 
+    /**
+     * @param Request $request
+     * @param         $id
+     *
+     * @return Response
+     */
     public function updatePost(Request $request, $id)
     {
         $input = $request->only([
@@ -74,6 +102,11 @@ class AdminAnswerController extends Controller
         return redirect()->route('admin.answer.list');
     }
 
+    /**
+     * @param $id
+     *
+     * @return Response
+     */
     public function delete($id)
     {
         $answer = $this->answerRepo->findOrFail($id);

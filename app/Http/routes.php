@@ -27,8 +27,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::post('view/{id}', ['as' => 'admin.poll.view.post', function (\Symfony\Component\HttpFoundation\Request $request) {
             dd($request->all());
         }]);
-
-//        Route::get('create/flow', ['as' => 'admin.poll.flowCreate', 'uses' => 'AdminPollController@flowCreate']);
     });
 
     Route::group(['prefix' => 'user'], function () {
@@ -50,8 +48,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function () {
         Route::get('update/{id}', ['as' => 'admin.question.update', 'uses' => 'AdminQuestionController@update']);
         Route::post('update/{id}', ['as' => 'admin.question.update.post', 'uses' => 'AdminQuestionController@updatePost']);
         Route::get('delete/{id}', ['as' => 'admin.question.delete', 'uses' => 'AdminQuestionController@delete']);
-
-//        Route::post('create/flow', ['as' => 'admin.question.flowCreate', 'uses' => 'AdminQuestionController@flowCreate']);
     });
 
     Route::group(['prefix' => 'answer'], function () {
@@ -81,6 +77,10 @@ Route::get('logout', ['as' => 'auth.logout', 'uses' => 'AuthController@getLogout
 Route::get('email/verify/{token}', ['as' => 'auth.emailVerify', 'uses' => 'AuthController@verifyEmail']);
 Route::get('email/verify/resend/{id}', ['as' => 'auth.emailResend', 'uses' => 'AuthController@resendVerificationEmail']);
 
+Route::get('/my-polls', ['as' => 'user.polls', 'uses' => 'HomeController@myPolls']);
+Route::get('/my-polls/{id}', ['as' => 'user.polls.view', 'uses' => 'HomeController@myPollView']);
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/{id}', ['as' => 'poll', 'uses' => 'HomeController@poll']);
+Route::post('/{id}', ['as' => 'poll.post', 'uses' => 'HomeController@pollPost']);
 
 

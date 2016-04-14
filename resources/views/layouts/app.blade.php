@@ -48,7 +48,10 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ URL::route('home') }}">Home</a></li>
+                    @if(Auth::check())
+                        <li><a href="{{ URL::route('user.polls') }}">My polls</a></li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->

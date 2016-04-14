@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Exceptions\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Poll extends Model
 {
@@ -98,11 +100,30 @@ class Poll extends Model
         $this->lock = $lock;
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function questions()
     {
         return $this->belongsToMany('App\Models\Question');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function userAnswers()
+    {
+        return $this->hasMany('App\Models\UserAnswer');
+    }
+
+    /**
+     * @param string $title
+     * @param string $visibility
+     * @param string $status
+     *
+     * @return static
+     * @throws InvalidArgumentException
+     */
     public static function make($title, $visibility, $status)
     {
         if(!in_array($visibility, self::$VALID_VISIBILITY)){
@@ -118,5 +139,15 @@ class Poll extends Model
             'visibility' => $visibility,
             'status'     => $status
         ]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublic()
+    {
+        if($this->getVisibility() === self::VISIBILITY_PUBLIC) return true;
+
+        return false;
     }
 }

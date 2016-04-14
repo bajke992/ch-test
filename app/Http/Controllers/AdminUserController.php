@@ -9,6 +9,7 @@ use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 
 class AdminUserController extends Controller
@@ -28,6 +29,9 @@ class AdminUserController extends Controller
         $this->userRepo = $userRepo;
     }
 
+    /**
+     * @return Response
+     */
     public function index()
     {
         $users = $this->userRepo->getAll();
@@ -35,6 +39,9 @@ class AdminUserController extends Controller
         return view('admin.users.list', ['users' => $users]);
     }
 
+    /**
+     * @return Response
+     */
     public function create()
     {
         $user = new User;
@@ -42,6 +49,13 @@ class AdminUserController extends Controller
         return view('admin.users.form', ['user' => $user]);
     }
 
+    /**
+     * @param Request $request
+     * @param Mailer  $mailer
+     * @param Hasher  $hasher
+     *
+     * @return Response
+     */
     public function createPost(Request $request, Mailer $mailer, Hasher $hasher)
     {
         $input = $request->only([
@@ -68,6 +82,11 @@ class AdminUserController extends Controller
         return redirect()->route('admin.user.list');
     }
 
+    /**
+     * @param $id
+     *
+     * @return Response
+     */
     public function update($id)
     {
         $user = $this->userRepo->findOrFail($id);
@@ -75,6 +94,14 @@ class AdminUserController extends Controller
         return view('admin.users.form', ['user' => $user, 'update' => true]);
     }
 
+    /**
+     * @param Request $request
+     * @param         $id
+     * @param Hasher  $hasher
+     * @param Mailer  $mailer
+     *
+     * @return Response
+     */
     public function updatePost(Request $request, $id, Hasher $hasher, Mailer $mailer)
     {
         $user = $this->userRepo->findOrFail($id);
@@ -106,6 +133,11 @@ class AdminUserController extends Controller
 
     }
 
+    /**
+     * @param $id
+     *
+     * @return Response
+     */
     public function ban($id)
     {
         $user = $this->userRepo->findOrFail($id);
@@ -116,6 +148,11 @@ class AdminUserController extends Controller
         return redirect()->route('admin.user.list');
     }
 
+    /**
+     * @param $id
+     *
+     * @return Response
+     */
     public function delete($id)
     {
         $user = $this->userRepo->findOrFail($id);

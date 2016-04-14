@@ -1,8 +1,10 @@
 <?php namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
+use App\Models\Poll;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
@@ -105,6 +107,18 @@ class EloquentUserRepository implements UserRepositoryInterface
         }
 
         return $user;
+    }
+
+    /**
+     * @param Poll $poll
+     * @param User $user
+     *
+     * @return boolean
+     */
+    public function userCanParticipate(Poll $poll, User $user){
+        if(DB::table('user_answers')->whereUserId($user->id)->wherePollId($poll->id)->count() > 0) return false;
+
+        return true;
     }
 
     /**

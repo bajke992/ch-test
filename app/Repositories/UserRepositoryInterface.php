@@ -1,6 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
+use App\Models\Poll;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
@@ -56,6 +57,14 @@ interface UserRepositoryInterface
      * @throws EntityNotFoundException
      */
     public function findByTokenOrFail($token);
+
+    /**
+     * @param Poll $poll
+     * @param User $user
+     *
+     * @return boolean
+     */
+    public function userCanParticipate(Poll $poll, User $user);
 
     /**
      * @param User $user

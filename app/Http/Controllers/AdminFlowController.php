@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InvalidArgumentException;
 use App\Models\Answer;
 use App\Models\Poll;
 use App\Models\Question;
@@ -11,6 +12,7 @@ use App\Repositories\QuestionRepositoryInterface;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Http\Response;
 
 class AdminFlowController extends Controller
 {
@@ -41,6 +43,9 @@ class AdminFlowController extends Controller
         $this->answerRepo = $answerRepo;
     }
 
+    /**
+     * @return Response
+     */
     public function poll()
     {
         $poll = new Poll();
@@ -48,6 +53,12 @@ class AdminFlowController extends Controller
         return view('admin.polls.flowForm', ['poll' => $poll]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws InvalidArgumentException
+     */
     public function pollPost(Request $request)
     {
         $input = $request->only([
@@ -69,6 +80,12 @@ class AdminFlowController extends Controller
         return view('admin.questions.flowForm', ['poll' => $poll, 'question' => $question]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     * @throws InvalidArgumentException
+     */
     public function questionPost(Request $request)
     {
         $input = $request->only([
@@ -94,6 +111,11 @@ class AdminFlowController extends Controller
         return view('admin.answers.flowForm', ['poll' => $poll, 'questions' => $questions]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function answerPost(Request $request)
     {
         $input = $request->only([
