@@ -43,7 +43,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                Laravel
+                Ankete
             </a>
         </div>
 

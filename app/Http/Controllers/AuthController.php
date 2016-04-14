@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginPostRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\PostResetPasswordRequest;
 use App\Http\Requests\Auth\RegistrationPostRequest;
 use App\Http\Requests\Auth\RegistrationRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
 use App\Services\Mailer;
@@ -178,9 +180,76 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Mailer $mailer
+     * @param $token
+     *
+     * @return Response
      */
-    public function resendVerificationEmail(Mailer $mailer)
+    public function getReset($token)
     {
+        $user = $this->userRepo->findByTokenOrFail($token);
+
+        return view('auth.passwords.reset', [
+            'token' => $token,
+            'email' => $user->getEmail()
+        ]);
+    }
+
+    /**
+     * @param PostResetPasswordRequest $request
+     * @param Hasher                   $hasher
+     * @param Guard                    $guard
+     *
+     * @return Response
+     */
+    public function postReset(PostResetPasswordRequest $request, Hasher $hasher, Guard $guard)
+    {
+        $input = $request->only([
+            'token',
+            'email',
+            'password',
+            'password_confirmation'
+        ]);
+
+        $user = $this->userRepo->findByTokenOrFail($input['token']);
+        $user->setPassword($hasher->make($input['password']));
+        $user->setToken();
+        $this->userRepo->save($user);
+
+        session()->flash('message', 'Uspešno ste promenili lozinku.');
+
+        $guard->login($user);
+
+        return redirect()->route('home');
+    }
+
+    /**
+     * @return Response
+     */
+    public function getEmail()
+    {
+        return view('auth.passwords.email');
+    }
+
+    /**
+     * @param ResetPasswordRequest $request
+     * @param Mailer            $mailer
+     *
+     * @return Response
+     */
+    public function postEmail(ResetPasswordRequest $request, Mailer $mailer)
+    {
+        $input = $request->only([
+            'email',
+        ]);
+
+        $user = $this->userRepo->findByEmail(trim($input['email']));
+
+        $user->setToken();
+        $mailer->sendPasswordResetEmail($user);
+        $this->userRepo->save($user);
+
+        session()->flash('message', 'Poslat vam je email sa instrukcijama za reset lozinke.');
+
+        return redirect()->back();
     }
 }

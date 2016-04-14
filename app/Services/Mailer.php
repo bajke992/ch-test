@@ -69,6 +69,21 @@ class Mailer
     }
 
     /**
+     * @param User $user
+     */
+    public function sendPasswordResetEmail(User $user)
+    {
+        $this->to = $user->getEmail();
+        $this->view = 'auth.emails.password';
+        $this->data = [
+            'token' => $user->getToken(),
+            'user' => $user
+        ];
+
+        $this->deliver();
+    }
+
+    /**
      * Send email
      *
      * @param UploadedFile|null $attachment
