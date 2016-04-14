@@ -166,7 +166,6 @@ class HomeController extends Controller
             }
         }
 
-        dd($user->userAnswers);
         return redirect()->route('user.polls.view', [$poll->id]);
     }
 }
