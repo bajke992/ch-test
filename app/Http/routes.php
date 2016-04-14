@@ -71,7 +71,6 @@ Route::get('login', ['as' => 'auth.login', 'uses' => 'AuthController@getLogin'])
 Route::post('login', ['as' => 'auth.postLogin', 'uses' => 'AuthController@postLogin']);
 Route::get('logout', ['as' => 'auth.logout', 'uses' => 'AuthController@getLogout']);
 Route::get('email/verify/{token}', ['as' => 'auth.emailVerify', 'uses' => 'AuthController@verifyEmail']);
-//Route::get('email/verify/resend/{id}', ['as' => 'auth.emailResend', 'uses' => 'AuthController@resendVerificationEmail']);
 
 Route::get('password/reset/{token}', ['as' => 'auth.passwordReset', 'uses' => 'AuthController@getReset']);
 Route::post('password/reset', ['as' => 'auth.postPasswordReset', 'uses' => 'AuthController@postReset']);
